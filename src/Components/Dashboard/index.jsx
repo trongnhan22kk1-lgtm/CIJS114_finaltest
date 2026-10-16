@@ -4,36 +4,45 @@ import Form from "../Form"
 import List from "../List"
 
 function Dashboard () {
-    const [todos, setTools] = useState([])
+    const [todos, setTodos] = useState([])
     const [tab, setTab] = useState('all')
 
-    const visibleTodos = todos
+    const visibleTodos = todos.filter(todo => {
+        if (tab === 'active') return todo.active
+        if (tab === 'completed') return !todo.active
+        return true
+    })
 
     const handleAdd = (text) =>{
-        // TODO: thêm task mới { id, text, active: true} vào todos
+        setTodos([...todos, { id: Date.now(), text, active: true }])
     }
 
     const handleToggle = (id) =>{
-        // TODO: dùng map, đảo active của task có id trùng
+        setTodos(todos.map(todo => todo.id === id ? { ...todo, active: !todo.active } : todo))
     }
 
     const handleDelete = (id) =>{
-        // TODO: dùng filter bỏ task có id trùng
+        setTodos(todos.filter(todo => todo.id !== id))
     }
 
     const handleDeleteAll = () => {
-        // TODO: giữ lại các task còn active
+        setTodos(todos.filter(todo => todo.active))
     }
 
     return(
         <div>
             <Tabs current={tab} onChange={setTab}/>
-            <Form onAdd={handleAdd}/>
+            {tab !== 'completed' && <Form onAdd={handleAdd}/>}
             <List
-                todos={visilbleTodos}
+                todos={visibleTodos}
                 showDelete={tab === 'completed'}
                 onToggle={handleToggle}
                 onDelete={handleDelete}/>
+            {tab === 'completed' && visibleTodos.length > 0 && (
+                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <button onClick={handleDeleteAll}>Delete all</button>
+                </div>
+            )}
         </div>
     )
 }

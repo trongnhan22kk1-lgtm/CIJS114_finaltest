@@ -5,6 +5,10 @@ function Form({onAdd}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const value = text.trim()
+        if (!value) return
+        onAdd(value)
+        setText("")
     }
 
     return(
@@ -15,4 +19,4 @@ function Form({onAdd}) {
     )
 }
 
-export default Form 
+export default Form

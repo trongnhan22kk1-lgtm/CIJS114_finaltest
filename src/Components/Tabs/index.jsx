@@ -4,14 +4,14 @@ const TABS = [
     {key: "completed", label: "Completed"}
 ]
 
-function Tabs ({currents, onChange}) {
+function Tabs ({current, onChange}) {
     return(
-        <div style={{display:'flex', justìyContent:'space-around'}}>
+        <div style={{display:'flex', justifyContent:'space-around'}}>
             {TABS.map(t=>(
                 <div
                 key={t.key}
                 onClick={() => onChange(t.key)}
-                style={{borderBottom: current === t.key ? "4px solid #2F80ED" : none}}>
+                style={{cursor: "pointer", borderBottom: current === t.key ? "4px solid #2F80ED" : "none"}}>
                     {t.label}
                 </div>
             ))}
