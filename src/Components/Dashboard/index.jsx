@@ -1,44 +1,60 @@
 import { useState } from "react"
 
 function Dashboard () {
-    const [setAll,setActive, setComplete] = useState(false)
-    const showTable = useState(false)
+    const [showAll,setAll] = useState(false)
+    const [showActive, setActive] = useState(false)
+    const [showComplete, setComplete] = useState(false)
     const handleAll = () =>{
-        setAll=true
-        setActive=false
-        setComplete=false
+        setAll(!showAll)
     }
     const handleActive = () =>{
-        setActive=true
-        setAll=false
-        setComplete=false
+        setActive(!showActive)
     }
     const handleComplete = () =>{
-        setComplete=true
-        setAll=false
-        setActive=false
+        setComplete(!showComplete)
     }
     return(
         <div style={{display:'flex',justifyContent:'space-around'}}>
             <div>
-                <span onClick={handleAll}>All</span>
-                {showTable && (
+                <div onClick={handleAll}>All</div>
+                {showAll && (
+                   <table>
+                        <tbody>
+                            <th>
+                                <tr><input type="radio"></input></tr>
+                                <tr>All</tr>
+                            </th>
+                        </tbody>
+                    </table>
+                    )}
+            </div>
+            <div>
+                <div onClick={handleAll}>All</div>
+                {showActive && (
                     <table>
                         <tbody>
                             <th>
                                 <tr><input type="radio"></input></tr>
-                                <tr></tr>
+                                <tr>Active</tr>
                             </th>
                         </tbody>
                     </table>
-                )}
+                    )}
             </div>
             <div>
-                <span onClick={handleActive}>Active</span>
+                <div onClick={handleAll}>All</div>
+                {showComplete && (
+                    <table>
+                        <tbody>
+                            <th>
+                                <tr><input type="radio"></input></tr>
+                                <tr>Complete</tr>
+                            </th>
+                        </tbody>
+                    </table>
+                    )}
             </div>
-            <div>
-                <span onClick={handleComplete}>Complete</span>
-            </div>
+
         </div>
     )
 }
